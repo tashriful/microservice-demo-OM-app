@@ -1,6 +1,6 @@
-# 📱 AyeMobileApplication
+# 📱 Microservice-demo-OM-app
 
-A modular microservice-based backend system for the AYE Mobile Application. This project is designed to support a scalable, maintainable, and secure mobile backend with services like authentication, user management, delivery scheduling, and more.
+A modular microservice-based backend system. This project is designed to support a scalable, maintainable, and secure mobile backend with services like authentication, user management, delivery scheduling, and more.
 
 ## 🚀 Technologies Used
 
@@ -13,30 +13,30 @@ A modular microservice-based backend system for the AYE Mobile Application. This
 
 ## 📱 Mobile Application Backend Project Overview
 
-This section outlines the structure and interactions between the **Mobile-UI (`aye-backoffice-ui`)**, the **mobile application (Android/iOS)**, and the supporting backend **microservices**, as they integrate with the main **AYE application**.
+This section outlines the structure and interactions between the **Mobile-UI (`OM-backoffice-ui`)**, the **mobile application (Android/iOS)**, and the supporting backend **microservices**, as they integrate with the main **OM application**.
 
 
-### 🖥️ aye-backoffice-ui
+### 🖥️ OM-backoffice-ui
 
-- **aye-backoffice-ui** will be a JAR module of the main **AYE application**.
+- **OM-backoffice-ui** will be a JAR module of the main **OM application**.
 - It connects to other microservices via the **API Gateway**.
 - Key functionalities:
   - Create mobile application users and assign access (**handled by `user-service` microservice**).
   - View and approve posted **orders** and **payments** coming from the mobile application.
-  - After final approval, the data is sent to the main **AYE application**.
+  - After final approval, the data is sent to the main **OM application**.
 
 ### 📦 Supporting Microservices
 
-- **User Service (`aye-mobile-userservice`)**  
+- **User Service (`OM-mobile-userservice`)**  
   Handles all user-related operations, including user creation, access control, and permission management.
 
-- **Delivery Schedule Service (`aye-mobiledelvschd`)**  
+- **Delivery Schedule Service (`OM-mobiledelvschd`)**  
   Manages delivery schedule APIs used by the mobile application.
 
-- **Authentication Service (`aye-mobileapp-authservice`)**  
+- **Authentication Service (`OM-mobileapp-authservice`)**  
   Handles login/authentication-related APIs and security.
 
-- **Backend Service (`aye-mobileapp-backend`)**  
+- **Backend Service (`OM-mobileapp-backend`)**  
   Provides APIs related to:
   - Orders  
   - Payments  
@@ -53,17 +53,17 @@ This section outlines the structure and interactions between the **Mobile-UI (`a
 
 ```bash
 
-AYE-Mobile-Backend Projects/
+OM-Mobile-Backend Projects/
 │
 ├── api-gateway/ # Gateway service to route requests
-├── aye-backoffice-ui/ # Backoffice management UI (optional)
-├── aye-mobile-userservice/ # User management microservice
-├── aye-mobileBase/ # Common/shared utilities or base classes
-├── aye-mobileapp-authservice/ # Authentication service
-├── aye-mobileapp-backend/ # Core mobile app logic and APIs
-├── aye-mobiledelvschd/ # Delivery schedule microservice
+├── OM-backoffice-ui/ # Backoffice management UI (optional)
+├── OM-mobile-userservice/ # User management microservice
+├── OM-mobileBase/ # Common/shared utilities or base classes
+├── OM-mobileapp-authservice/ # Authentication service
+├── OM-mobileapp-backend/ # Core mobile app logic and APIs
+├── OM-mobiledelvschd/ # Delivery schedule microservice
 ├── service-registry/ # Eureka Service Registry
-├── AYE Mobile Service.postman_collection.json # Postman collection for API testing
+├── OM Mobile Service.postman_collection.json # Postman collection for API testing
 ├── project structure and flow.xlsx # Project documentation
 └── README.md # This file
 
@@ -78,14 +78,14 @@ Start the projects in the following order to ensure proper service discovery and
 | Step | Project Name                  | Port  | Description                                 | API Gateway Route Prefix                  |
 |------|-------------------------------|-------|---------------------------------------------|-------------------------------------------|
 | 1    | **service-registry**          | 8760  | Eureka Server for service registration      | N/A                                       |
-| 2    | **aye-mobileapp-authservice** | 8084  | Authentication and JWT token issuance       | `/msales/api/auth/**`                     |
-| 3    | **aye-mobile-userservice**    | 8082  | User-related operations                     | `/msales/api/user/**`                     |
-| 4    | **aye-mobileapp-backend**     | 8081  | Core business logic for mobile features     | `/msales/api/main/**`                     |
-| 5    | **aye-mobiledelvschd**        | 8083  | Delivery schedule processing                | `/msales/api/dlv/**`                      |
+| 2    | **OM-authservice**            | 8084  | Authentication and JWT token issuance       | `/msales/api/auth/**`                     |
+| 3    | **OM-userservice**            | 8082  | User-related operations                     | `/msales/api/user/**`                     |
+| 4    | **OM-backend**                | 8081  | Core business logic for mobile features     | `/msales/api/main/**`                     |
+| 5    | **OM-delvschd**               | 8083  | Delivery schedule processing                | `/msales/api/dlv/**`                      |
 | 6    | **api-gateway**               | 8080  | Central gateway to route and secure APIs    | Routes requests to all backend services   |
-| 7    | **aye-backoffice-ui**         | 9091  | Web frontend (Thymeleaf) interface          | Access via: `http://localhost:9091/AYE`       |
+| 7    | **OM-backoffice-ui**          | 9091  | Web frontend (Thymeleaf) interface          | Access via: `http://localhost:9091/OM`       |
 
-> ℹ️ **aye-mobileBase** (common/shared library) is used as a dependency and doesn't need to be run as a standalone application.
+> ℹ️ **OM-mobileBase** (common/shared library) is used as a dependency and doesn't need to be run as a standalone application.
 
 ---
 
@@ -117,7 +117,7 @@ Requests are routed and filtered by the API Gateway before reaching backend serv
 
 All APIs are secured using JWT (JSON Web Token).
 
-Authentication is handled by aye-mobileapp-authservice.
+Authentication is handled by OM-mobileapp-authservice.
 
 Clients must first authenticate via /auth/authenticate to obtain a token.
 
@@ -133,7 +133,7 @@ Use the included Postman collection to test the APIs across all microservices.
 
 1. **Import the Collection**
    - Open **Postman**.
-   - Click on `Import` and select the file `AYE Mobile Service.postman_collection.json` from the project root.
+   - Click on `Import` and select the file `OM Mobile Service.postman_collection.json` from the project root.
 
 2. **Set Environment Variables**
    - Create or configure an environment in Postman with the following:
@@ -184,6 +184,6 @@ Use the included Postman collection to test the APIs across all microservices.
 
 ---
 
-> Thank you for using AYE Mobile Application Backend! 🚀
+> Thank you for using OM Application Backend! 🚀
 
 
